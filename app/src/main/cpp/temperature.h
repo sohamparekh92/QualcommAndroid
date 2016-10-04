@@ -9,6 +9,7 @@
 #include <cstring>
 #include <vector>
 //Temperature is a Singleton class.
+//
 class Temperature
 {
 public:
@@ -16,7 +17,6 @@ public:
     std::vector<int> getCelsius(std::vector<int> temp_f );
 
 private:
-    //std::vector<int> temp;
     Temperature(){}
     Temperature(Temperature&);
 };

@@ -14,8 +14,8 @@ Java_com_example_soham_qualcommandroid_MainActivity_getTempJNI(
 
     std::vector<int> temp_far;
     std::vector<int> temp_cel;
-    int len= env->GetArrayLength(j_temp_far);
 
+    int len= env->GetArrayLength(j_temp_far);
     jint *body = env->GetIntArrayElements(j_temp_far, 0);
 
     for(int i=0;i<len;++i){
