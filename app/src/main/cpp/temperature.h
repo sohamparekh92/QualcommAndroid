@@ -2,24 +2,23 @@
 // Created by Soham on 10/3/2016.
 //
 
-#ifndef QUALCOMMANDROID_TRANSFORM_H
-#define QUALCOMMANDROID_TRANSFORM_H
+#ifndef QUALCOMMANDROID_TEMPERATURE_H
+#define QUALCOMMANDROID_TEMPERATURE_H
 
 #include <iostream>
 #include <cstring>
+#include <vector>
 //Temperature is a Singleton class.
 class Temperature
 {
 public:
-    static Temperature& getInstance(double);
-    double  getTemp() { return temp; }
+    static Temperature& getInstance();
+    std::vector<int> getCelsius(std::vector<int> temp_f );
 
 private:
-    double temp;
-    Temperature(double t):temp(t){
-    }
-    Temperature();
+    //std::vector<int> temp;
+    Temperature(){}
     Temperature(Temperature&);
 };
 
-#endif //QUALCOMMANDROID_TRANSFORM_H
+#endif //QUALCOMMANDROID_TEMPERATURE_H

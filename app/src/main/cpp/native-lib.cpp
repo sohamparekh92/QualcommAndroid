@@ -1,21 +1,26 @@
 #include <jni.h>
 #include <string>
 #include <sstream>
+#include <vector>
 #include "temperature.h"
 
 extern "C"
 
 jstring
-Java_com_example_soham_qualcommandroid_MainActivity_stringFromJNI(
+Java_com_example_soham_qualcommandroid_MainActivity_getTempJNI(
         JNIEnv* env,
         jobject, /* this */
-        jdouble temp) {
+        jintArray j_temp_far) {
 
-    double tp = temp;
-    std::ostringstream strx;
-    strx<<temp;
-    //std::string tp =
-    std::string hello = "Hello from C++ "+strx.str();//+Temperature::getInstance(temp).getTemp();
+    std::vector<int> temp_far;
+    int len= env->GetArrayLength(j_temp_far);
+    //int a = env->GetIntArrayElements()
 
-    return env->NewStringUTF(hello.c_str());
+    jint *body = env->GetIntArrayElements(j_temp_far, 0);
+    std::ostringstream resultstream;
+    resultstream<<len;
+
+    std::string result = resultstream.str()+" - Size";
+
+    return env->NewStringUTF(result.c_str());
 }
