@@ -3,8 +3,8 @@
 //
 #include "temperature.h"
 
-static Temperature& Temperature::getInstance(){
-    static Temperature instance;
+Temperature& Temperature::getInstance(double temp){
+    static Temperature instance(temp);
     return instance;
 }
 

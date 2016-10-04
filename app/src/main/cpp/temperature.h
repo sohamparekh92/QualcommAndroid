@@ -11,14 +11,14 @@
 class Temperature
 {
 public:
-    static Temperature& getInstance();
-    std::string&  getTemp() { return temp; }
+    static Temperature& getInstance(double);
+    double  getTemp() { return temp; }
 
 private:
-    std::string temp;
-    Temperature():temp("1"){
+    double temp;
+    Temperature(double t):temp(t){
     }
-    Temperature(double);
+    Temperature();
     Temperature(Temperature&);
 };
 
