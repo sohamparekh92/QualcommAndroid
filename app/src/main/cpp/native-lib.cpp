@@ -6,7 +6,7 @@
 
 extern "C"
 
-//For Week days values
+//For day-temperature values
 jstring
 Java_com_example_soham_qualcommandroid_MainActivity_getTempJNI(JNIEnv* env, jobject, jintArray j_temp_c) {
 

@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private TextView sensorDataView;
     private ListView tempDataView;
     private TempDataAdapter adapter;
-    private boolean scale_celsius = true;
+    private boolean scale_celsius = true; //Single variable to maintain a scale (Celsius or Fahrenheit)
     private boolean isSensorPresent = false;
 
     @Override
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             sensorDataView.setText("Sensor Not Available.");
         }
 
+        //Random Temperatures Generated
         int temperatureArrayCel[] = new int[]{22,13,11,25,33};
         //TODO: Make a random number generator for Celsius temperatures
         String days[] = new String[]{"Mon","Tue","Wed","Thu","Fri"};
@@ -72,17 +73,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             adapter.add(tempData[i]);
             i++;
         }
-
+        //Get the result from native method after conversion
         String [] tempFarString = getTempJNI(temperatureArrayCel).split(" ");
         for(i=0; i<tempFarString.length; i++ ) {
             tempData[i].setFahrenheit(Integer.parseInt(tempFarString[i]));
-            Log.i("Temp in Far", ""+tempData[i].getFahrenheit());
         }
 
         tempDataView.setAdapter(adapter);
     }
 
-
+    //Toggle from Celsius to Fahrenheit and vice versa
     public void toggleScale(){
         scale_celsius = !scale_celsius;
         adapter.toggleScale();
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     protected void onResume() {
         super.onResume();
-        mSensorManager.registerListener(this, mAmbientTemperature, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mAmbientTemperature, SensorManager.SENSOR_DELAY_UI);
     }
 
     protected void onPause() {
@@ -102,12 +102,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         if(event.sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE && isSensorPresent){
+            //Sensor (if present) returns the temperature in Celsius at event.[0]
             if(scale_celsius) {
                 sensorDataView.setText(event.values[0] + "");
             }
             else{
+                //Convert to Fahrenheit if toggled using JNI methods
                 int result = getTempSingleJNI((int)event.values[0]);
-                sensorDataView.setText(result+"");
+                sensorDataView.setText(result + "");
             }
         }
     }

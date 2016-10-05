@@ -23,7 +23,7 @@
         android:id="@+id/sample_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16dp"
+        android:textSize="18dp"
         android:text="Phone Ambient Temperature:"
         android:layout_below="@+id/toggleButton"
         android:layout_alignParentStart="true"

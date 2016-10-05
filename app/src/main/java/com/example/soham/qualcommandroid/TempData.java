@@ -13,8 +13,9 @@ public class TempData {
     public TempData(String day, int celsius) {
         this.day = day;
         this.celsius = celsius;
-        this.fahrenheit = 0; //Fahrenheit value initialized to 0 as it will be set after
-                             //the conversion by the native method
+        //Fahrenheit value initialized to 0 as it will be set after
+        //the conversion by the native method
+        this.fahrenheit = 0;
     }
 
     public int getFahrenheit() {
