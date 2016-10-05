@@ -45,4 +45,13 @@
         android:layout_above="@+id/tempDataList"
         android:layout_alignParentEnd="true" />
 
+    <TextView
+        android:text="°C"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:layout_alignParentTop="true"
+        android:id="@+id/scaleDisplay"
+        android:layout_above="@+id/sample_text" />
+
 </RelativeLayout>

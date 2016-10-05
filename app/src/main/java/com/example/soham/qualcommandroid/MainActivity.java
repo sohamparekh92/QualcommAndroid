@@ -23,8 +23,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor mAmbientTemperature;
     private ToggleButton toggleScaleButton;
     private TextView sensorDataView;
+    protected TextView scaleDisplay;
     private ListView tempDataView;
     private TempDataAdapter adapter;
+    private ActionBarHandler actionBarHandler = new ActionBarHandler(this);
     private boolean scale_celsius = true; //Single variable to maintain a scale (Celsius or Fahrenheit)
     private boolean isSensorPresent = false;
 
@@ -39,13 +41,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         tempDataView = (ListView)findViewById(R.id.tempDataList);
         adapter = new TempDataAdapter(getApplicationContext(),R.layout.row_layout);
 
+        scaleDisplay = (TextView)findViewById(R.id.scaleDisplay);
+
         //Configuring Toggle Button
         toggleScaleButton = (ToggleButton) findViewById(R.id.toggleButton);
         toggleScaleButton.setChecked(true);
-        toggleScaleButton.setText("°C");
-        toggleScaleButton.setTextOn("°C");
-        toggleScaleButton.setTextOff("°F");
-
+        toggleScaleButton.setText("Switch to °F");
+        toggleScaleButton.setTextOn("Switch to °F");
+        toggleScaleButton.setTextOff("Switch to °C");
         toggleScaleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -85,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //Toggle from Celsius to Fahrenheit and vice versa
     public void toggleScale(){
         scale_celsius = !scale_celsius;
+        actionBarHandler.setActionBar(scale_celsius);
         adapter.toggleScale();
         adapter.notifyDataSetChanged();
     }
