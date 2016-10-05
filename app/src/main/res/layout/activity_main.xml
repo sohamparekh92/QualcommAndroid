@@ -16,4 +16,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
+
+    <TextView
+        android:id="@+id/sensorDataView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SENSOR DATA"
+        android:layout_marginStart="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/sample_text" />
+
+    <ListView
+        android:id="@+id/tempDataView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sample_text"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="22dp" />
+
 </RelativeLayout>

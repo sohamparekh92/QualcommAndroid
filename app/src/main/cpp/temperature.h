@@ -9,7 +9,6 @@
 #include <cstring>
 #include <vector>
 //Temperature is a Singleton class.
-//
 class Temperature
 {
 public:

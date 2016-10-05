@@ -7,10 +7,7 @@
 extern "C"
 
 jstring
-Java_com_example_soham_qualcommandroid_MainActivity_getTempJNI(
-        JNIEnv* env,
-        jobject, /* this */
-        jintArray j_temp_far) {
+Java_com_example_soham_qualcommandroid_MainActivity_getTempJNI(JNIEnv* env, jobject, jintArray j_temp_far) {
 
     std::vector<int> temp_far;
     std::vector<int> temp_cel;
