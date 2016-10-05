@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         String [] tempFarString = getTempJNI(temperatureArrayCel).split(" ");
         for(i=0; i<tempFarString.length; i++ ) {
-            //temperaTureArrayFar[i] = Integer.parseInt(tempFarString[i]);
             tempData[i].setFahrenheit(Integer.parseInt(tempFarString[i]));
             Log.i("Temp in Far", ""+tempData[i].getFahrenheit());
         }
@@ -102,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if(event.sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE ) {//&& isSensorPresent){
+        if(event.sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE && isSensorPresent){
             if(scale_celsius) {
                 sensorDataView.setText(event.values[0] + "");
             }
