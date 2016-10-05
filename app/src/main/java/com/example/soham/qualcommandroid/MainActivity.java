@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private long UPDATE_THRESHOLD;
     private TextView sensorDataView;
     private ListView tempDataView;
+    private TempDataAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         LAST_UPDATE_TIME = 0;
         UPDATE_THRESHOLD = 1000;
-        tempDataView = (ListView)findViewById(R.id.tempDataView);
+        tempDataView = (ListView)findViewById(R.id.tempDataList);
+        adapter = new TempDataAdapter(getApplicationContext(),R.layout.row_layout);
+        ;
 
         if(mAmbientTemperature!=null){
             Log.i("Ambient Sensor Check", "Affirmative");
@@ -45,16 +48,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Log.i("Ambient Sensor Check", "Negative");
         }
 
-        TextView tv = (TextView) findViewById(R.id.sample_text);
+        //TextView tv = (TextView) findViewById(R.id.sample_text);
         sensorDataView = (TextView) findViewById(R.id.sensorDataView);
-        int a[] = new int[]{75,73,54,65,67};
+        int temperatureArray[] = new int[]{75,73,54,65,67};
         String days[] = new String[]{"Mon","Tue","Wed","Thu","Fri"};
         int i=0;
         for (String day: days){
-
+            TempData tempData = new TempData(day,temperatureArray[i]);
+            adapter.add(tempData);
+            i++;
         }
 
-        tv.setText(getTempJNI(a));
+        tempDataView.setAdapter(adapter);
+
+        //tv.setText(getTempJNI(temperatureArray));
     }
 
     protected void onResume() {

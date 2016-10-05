@@ -7,11 +7,21 @@ package com.example.soham.qualcommandroid;
 public class TempData {
 
     private int celsius;
+    private int fahrenheit;
     private String day;
 
     public TempData(String day, int celsius) {
         this.day = day;
         this.celsius = celsius;
+        this.fahrenheit = 0;
+    }
+
+    public int getFahrenheit() {
+        return fahrenheit;
+    }
+
+    public void setFahrenheit(int fahrenheit) {
+        this.fahrenheit = fahrenheit;
     }
 
     public String getDay() {
