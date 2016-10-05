@@ -20,7 +20,7 @@ Java_com_example_soham_qualcommandroid_MainActivity_getTempJNI(JNIEnv* env, jobj
         temp_cel.push_back(body[i]);
     }
 
-    temp_far = Temperature::getInstance().getFarenheit(temp_cel);
+    temp_far = Temperature::getInstance().getFahrenheit(temp_cel);
     std::ostringstream resultstream;
 
     for(int i=0; i<temp_far.size();++i) {
@@ -35,6 +35,6 @@ Java_com_example_soham_qualcommandroid_MainActivity_getTempJNI(JNIEnv* env, jobj
 jint
 Java_com_example_soham_qualcommandroid_MainActivity_getTempSingleJNI(JNIEnv* env, jobject, jint j_temp_c) {
     int result = 0;
-   // result = Temperature::getInstance().getFarenheit(j_temp_c);
+    result = Temperature::getInstance().getFahrenheit(j_temp_c);
     return (jint)result;
 }

@@ -9,12 +9,13 @@
 #include <cstring>
 #include <vector>
 //Temperature is a Singleton class.
+//Conversion logic is handled by the Temperature class
 class Temperature
 {
 public:
     static Temperature& getInstance();
-    std::vector<int> getFarenheit(std::vector<int> );
-    int getFarenheit(int );
+    std::vector<int> getFahrenheit(std::vector<int> );
+    int getFahrenheit(int );
 
 private:
     Temperature(){}

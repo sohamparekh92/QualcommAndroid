@@ -21,9 +21,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private SensorManager mSensorManager;
     private Sensor mAmbientTemperature;
-    private Sensor mAccelerometer;
-    private long LAST_UPDATE_TIME;
-    private long UPDATE_THRESHOLD;
     private ToggleButton toggleScaleButton;
     private TextView sensorDataView;
     private ListView tempDataView;
@@ -36,15 +33,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         mAmbientTemperature = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
-        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        LAST_UPDATE_TIME = 0;
-        UPDATE_THRESHOLD = 1000;
+
         tempDataView = (ListView)findViewById(R.id.tempDataList);
         adapter = new TempDataAdapter(getApplicationContext(),R.layout.row_layout);
 
+        //Configuring Toggle Button
         toggleScaleButton = (ToggleButton) findViewById(R.id.toggleButton);
         toggleScaleButton.setChecked(true);
         toggleScaleButton.setText("°C");
@@ -59,13 +54,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         });
 
         //Looks for Ambient temperature sensor
+        sensorDataView = (TextView) findViewById(R.id.sensorDataView);
         if(mAmbientTemperature!=null){
             isSensorPresent = true;
         }
+        else{
+            sensorDataView.setText("Sensor Not Available.");
+        }
 
-        sensorDataView = (TextView) findViewById(R.id.sensorDataView);
         int temperatureArrayCel[] = new int[]{22,13,11,25,33};
-        int temperaTureArrayFar[] = new int [temperatureArrayCel.length];
+        //TODO: Make a random number generator for Celsius temperatures
         String days[] = new String[]{"Mon","Tue","Wed","Thu","Fri"};
         int i=0;
         TempData tempData[] = new TempData[days.length];
@@ -76,10 +74,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
 
         String [] tempFarString = getTempJNI(temperatureArrayCel).split(" ");
-        for(i=0; i<temperaTureArrayFar.length; i++ ) {
-            temperaTureArrayFar[i] = Integer.parseInt(tempFarString[i]);
-            tempData[i].setFahrenheit(temperaTureArrayFar[i]);
-            Log.i("Temp in Far", ""+temperaTureArrayFar[i]);
+        for(i=0; i<tempFarString.length; i++ ) {
+            //temperaTureArrayFar[i] = Integer.parseInt(tempFarString[i]);
+            tempData[i].setFahrenheit(Integer.parseInt(tempFarString[i]));
+            Log.i("Temp in Far", ""+tempData[i].getFahrenheit());
         }
 
         tempDataView.setAdapter(adapter);
@@ -94,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     protected void onResume() {
         super.onResume();
-        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mAmbientTemperature, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     protected void onPause() {
@@ -104,13 +102,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if(event.sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE && isSensorPresent){
-            sensorDataView.setText(event.values[0]+"");
+        if(event.sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE ) {//&& isSensorPresent){
+            if(scale_celsius) {
+                sensorDataView.setText(event.values[0] + "");
+            }
+            else{
+                int result = getTempSingleJNI((int)event.values[0]);
+                sensorDataView.setText(result+"");
+            }
         }
-        else{
-            sensorDataView.setText("Sensor Not Available.");
-        }
-
     }
 
     @Override
@@ -118,8 +118,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
-
-    //Native method implemented by native-lib library
+    //Native methods implemented by native-lib library
     public native String getTempJNI(int [] temp_c);
     public native int getTempSingleJNI(int temp_c);
 

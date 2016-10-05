@@ -23,19 +23,11 @@
         android:id="@+id/sample_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="16dp"
         android:text="Phone Ambient Temperature:"
         android:layout_below="@+id/toggleButton"
         android:layout_alignParentStart="true"
         android:layout_marginTop="40dp" />
-
-    <TextView
-        android:id="@+id/sensorDataView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SENSOR DATA"
-        android:layout_alignBaseline="@+id/sample_text"
-        android:layout_alignBottom="@+id/sample_text"
-        android:layout_alignParentEnd="true" />
 
     <ListView
         android:id="@+id/tempDataList"
@@ -44,5 +36,13 @@
         android:layout_marginTop="39dp"
         android:layout_below="@+id/sample_text"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/sensorDataView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SENSOR DATA"
+        android:layout_above="@+id/tempDataList"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
