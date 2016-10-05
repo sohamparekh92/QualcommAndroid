@@ -13,7 +13,8 @@ class Temperature
 {
 public:
     static Temperature& getInstance();
-    std::vector<int> getCelsius(std::vector<int> temp_f );
+    std::vector<int> getFarenheit(std::vector<int> );
+    int getFarenheit(int );
 
 private:
     Temperature(){}

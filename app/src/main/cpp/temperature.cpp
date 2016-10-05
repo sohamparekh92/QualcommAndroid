@@ -8,10 +8,11 @@ Temperature& Temperature::getInstance(){
     return instance;
 }
 
-std::vector<int> Temperature::getCelsius(std::vector<int> far){
+std::vector<int> Temperature::getFarenheit(std::vector<int> cel){
     std::vector<int> result;
-    for(int i=0; i<far.size();++i) {
-        result.push_back((far[i] - 32) * 5 / 9);
+    for(int i=0; i<cel.size();++i) {
+        //result.push_back((far[i] - 32) * 5 / 9);
+        result.push_back(cel[i]*(9/5)+32 );
     }
     return result;
 }

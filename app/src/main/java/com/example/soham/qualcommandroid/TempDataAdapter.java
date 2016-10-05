@@ -22,6 +22,9 @@ import java.util.List;
 public class TempDataAdapter extends ArrayAdapter {
 
     private List list = new ArrayList();
+    private boolean scale_celsius = true;
+
+    public void toggleScale() { scale_celsius = !scale_celsius; }
 
     public TempDataAdapter(Context context, int resource) {
         super(context, resource);
@@ -70,7 +73,12 @@ public class TempDataAdapter extends ArrayAdapter {
         TempData tempData = (TempData) this.list.get(position);
 
         t_data.day.setText(tempData.getDay());
-        t_data.temp.setText(tempData.getCelsius()+"");
+        if(scale_celsius) {
+            t_data.temp.setText(tempData.getCelsius() + "");
+        }
+        else {
+            t_data.temp.setText(tempData.getFahrenheit() + "");
+        }
         return row;
     }
 }
