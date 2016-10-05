@@ -84,9 +84,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
     public void toggleScale(){
+        scale_celsius = !scale_celsius;
         adapter.toggleScale();
         adapter.notifyDataSetChanged();
-        scale_celsius = !scale_celsius;
     }
 
     protected void onResume() {
