@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener{
 
     private SensorManager mSensorManager;
@@ -50,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
-        //Looks for Ambient temperature sensor
         sensorDataView = (TextView) findViewById(R.id.sensorDataView);
+        //Looks for Ambient temperature sensor
         if(mAmbientTemperature!=null){
             isSensorPresent = true;
         }
@@ -60,9 +62,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
 
         //Random Temperatures Generated
-        int temperatureArrayCel[] = new int[]{22,13,11,25,33};
-        //TODO: Make a random number generator for Celsius temperatures
         String days[] = new String[]{"Mon","Tue","Wed","Thu","Fri"};
+        int temperatureArrayCel[] = new int[days.length];
+        Random random = new Random();
+        for(int i=0;i<days.length;i++){
+            if(random.nextInt(27)%4!=0){
+                temperatureArrayCel[i]=random.nextInt(45);
+            }
+            else{
+                temperatureArrayCel[i]=random.nextInt(10)*(-1);
+            }
+        }
+        //Generate and store Temperature-Days objects
         int i=0;
         TempData tempData[] = new TempData[days.length];
         for (String day: days){
@@ -125,5 +136,4 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     static {
         System.loadLibrary("native-lib");
     }
-
 }
