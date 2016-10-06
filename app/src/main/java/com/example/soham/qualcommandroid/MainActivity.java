@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             isSensorPresent = true;
         }
         else{
-            sensorDataView.setText("Sensor Not Available.");
+            sensorDataView.setText("No Sensor Detected");
         }
 
         //Random Temperatures Generated
