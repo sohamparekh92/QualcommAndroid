@@ -1,17 +1,11 @@
 package com.example.soham.qualcommandroid;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.provider.CalendarContract;
-import android.provider.Settings;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected TextView scaleDisplay;
     private ListView tempDataView;
     private TempDataAdapter adapter;
-    private ActionBarHandler actionBarHandler = new ActionBarHandler(this);
+    private ScaleDisplayHandler scaleDisplayHandler = new ScaleDisplayHandler(this);
     private boolean scale_celsius = true; //Single variable to maintain a scale (Celsius or Fahrenheit)
     private boolean isSensorPresent = false;
 
@@ -88,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //Toggle from Celsius to Fahrenheit and vice versa
     public void toggleScale(){
         scale_celsius = !scale_celsius;
-        actionBarHandler.setActionBar(scale_celsius);
+        scaleDisplayHandler.setScaleDisplays(scale_celsius);
         adapter.toggleScale();
         adapter.notifyDataSetChanged();
     }
@@ -122,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
 
     //Native methods implemented by native-lib library
     public native String getTempJNI(int [] temp_c);
