@@ -11,13 +11,18 @@ public class ScaleDisplayHandler {
 
     private MainActivity context;
 
-    public ScaleDisplayHandler(MainActivity context){
-        this.context = context;
+    public ScaleDisplayHandler(MainActivity context_){
+        this.context = context_;
+        context.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                context.scaleDisplay.setText("Temperatures in °C");
+            }
+        });
     }
 
     //Changes Scale displays according to scale
     public void setScaleDisplays(boolean c_scale){
-
         if(c_scale){
             context.runOnUiThread(new Runnable() {
                 @Override

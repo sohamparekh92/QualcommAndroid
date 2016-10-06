@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
-
     //Native methods implemented by native-lib library
     public native String getTempJNI(int [] temp_c);
     public native int getTempSingleJNI(int temp_c);
